@@ -1,11 +1,5 @@
 #  sealed trait Result[+T, +E]
 
-A Rust like Result type for Scala.
-
-
-## Usage 
-
-
 
 A Rust like Result type for Scala.
 
