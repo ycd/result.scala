@@ -6,7 +6,6 @@ A Rust like Result type for Scala.
 ## Usage 
 
 
-```scala
 
 A Rust like Result type for Scala.
 
