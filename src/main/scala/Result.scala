@@ -62,7 +62,7 @@ sealed trait Result[+T, +E] extends Any {
   }
 
   // Returns `res` if the result is [`Err`], otherwise returns the [`Ok`] value of `self`.
-  def or[U >: T, M >: E](result: Result[U, E]): Result[U, E] =
+  def or[U >: T, M >: E](result: Result[U, M]): Result[U, M] =
     this match {
       case Err(_) => result
       case _      => this
@@ -75,7 +75,7 @@ sealed trait Result[+T, +E] extends Any {
   }
 
   // Returns `res` if the result is [`Ok`], otherwise returns the [`Err`] value of `self`.
-  def and[U >: T](res: Result[U, E]): Result[U, E] =
+  def and[U >: T, M >: E](res: Result[U, M]): Result[U, M] =
     this match {
       case Ok(_)  => res
       case Err(e) => Err(e)
