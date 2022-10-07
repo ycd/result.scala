@@ -93,6 +93,6 @@ case class Ok[T, E](v: T) extends AnyVal with Result[T, E] {
 }
 
 case class Err[T, E](e: E) extends AnyVal with Result[T, E] {
-  override def map[U](f: T => U): Result[U, E] = this.asInstanceOf[Result[U, E]]
-  override def flatMap[U, F >: E](f: T => Result[U, F]): Result[U, F] = this.asInstanceOf[Result[U, F]]
+  override def map[U](f: T => U): Result[U, E] = Err(e)
+  override def flatMap[U, F >: E](f: T => Result[U, F]): Result[U, F] = Err(e)
 }
