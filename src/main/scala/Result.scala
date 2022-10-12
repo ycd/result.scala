@@ -84,12 +84,15 @@ sealed trait Result[+T, +E] extends Any {
   // Maps a `Result[T, E]` to `Result[U, E]` by applying a function to a
   // contained [`Ok`] value, leaving an [`Err`] value untouched.
   def map[U](f: T => U): Result[U, E]
+  def flatMap[U, F >: E](f: T => Result[U, F]): Result[U, F]
 }
 
 case class Ok[T, E](v: T) extends AnyVal with Result[T, E] {
   override def map[U](f: T => U): Result[U, E] = Ok(f(v))
+  override def flatMap[U, F >: E](f: T => Result[U, F]): Result[U, F] = f(v)
 }
 
 case class Err[T, E](e: E) extends AnyVal with Result[T, E] {
-  override def map[U](f: T => U): Result[U, E] = this.asInstanceOf[Result[U, E]]
+  override def map[U](f: T => U): Result[U, E] = Err(e)
+  override def flatMap[U, F >: E](f: T => Result[U, F]): Result[U, F] = Err(e)
 }
